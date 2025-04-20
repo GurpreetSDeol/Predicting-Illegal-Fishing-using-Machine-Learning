@@ -1,6 +1,6 @@
 # Predicting-Illegal-Fishing-using-Machine-Learning
 
-# Overview 
+## Overview 
 This project uses AIS data and spatial analysis to predict and flag potentially illegal fishing activity. A machine learning model is trained on vessel behavior to identify patterns indicative of fishing within Marine Protected Areas (MPAs).
 
 # Features 
