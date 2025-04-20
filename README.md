@@ -7,7 +7,7 @@ This project uses AIS data and spatial analysis to predict and flag potentially 
 
 Accesses recent Global Fishing Watch data via API
 
-Predicts fishing activity using a trained Random Forest model
+Predicts fishing activity using a trained Random Forest model with a 97% accuracy. 
 
 Identifies illegal activity based on overlap with MPAs
 
@@ -25,3 +25,12 @@ Predict fishing activity with ML model
 Filter vessel positions against ocean and MPA polygons
 
 Visualize potential illegal activity on a map
+
+# Data Sources
+Global Fishing Watch: Ship vessel data and API, including preprocessed labels indicating if a vessel is fishing.
+
+Natural Earth Data: Ocean and Land boundaries.
+
+Protected Planet: Marine Protected Zones (MPZ) boundaries.
+
+Marine Conservation Institute: Marine Protected Zones (MPZ) boundaries.
