@@ -28,9 +28,13 @@ Visualize potential illegal activity on a map
 
 # Files
 __Analysis.ipynb__: A visualisation of the MPZ's and fishing activity
+
 __Filter_Fishing_data.ipynb__: Contains all of the data preprocessing steps
+
 __Machine_Learning_Model.ipynb__: Development of the ML model
+
 __Main.ipynb__: Contains functions for the API request, data filtering, ML prediction and plotting 
+
 # Data Sources
 
 Global Fishing Watch: Ship vessel data and API, including preprocessed labels indicating if a vessel is fishing.
