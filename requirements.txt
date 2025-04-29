@@ -1,0 +1,8 @@
+streamlit
+pandas
+geopandas
+matplotlib
+shapely
+joblib
+requests
+python-dotenv
