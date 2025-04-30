@@ -3,5 +3,5 @@ pandas
 geopandas
 matplotlib
 shapely
-joblib
-requests==1.2.0
+joblib==1.2.0
+requests
