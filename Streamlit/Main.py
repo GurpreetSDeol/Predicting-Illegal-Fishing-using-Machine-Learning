@@ -1,5 +1,4 @@
 import os
-import requests
 import joblib
 import pandas as pd
 import geopandas as gpd
@@ -8,20 +7,18 @@ import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 
 class FishingAnalyser:
+
     def __init__(self):
         load_dotenv()
         self.token = os.getenv('token')
         self.rf_model = joblib.load('random_forest_fishing_model.pkl')
 
-        self.mpa_data = gpd.read_file(
-            r"D:\Datasets\Illegal Fishing\Original Data\mpatlas_export_geo_202503_BhMDKpV\mpatlas_export_geo_202503\mpatlas_export_geo_202503\mpatlas_export_geo_202503\mpatlas_export_mar2025.gdb",
-            layer='zoneassessment_geom'
-        ).to_crs(epsg=4326)
-
-        self.ocean_data = gpd.read_file(r'D:\Datasets\Illegal Fishing\Original Data\ne_110m_ocean\ne_110m_ocean.shp')
-        self.land_data = gpd.read_file(r'D:\Datasets\Illegal Fishing\Original Data\ne_10m_land\ne_10m_land.shp')
+        self.mpa_data = gpd.read_file('Data\Simple_mpz\simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
+        self.ocean_data = gpd.read_file('Data/ne_110m_ocean/ne_110m_ocean.shp')
+        self.land_data = gpd.read_file('Data/ne_10m_land/ne_10m_land.shp')
 
     def api_request(self, start_date, end_date, limit):
+        import requests
         url = 'https://gateway.api.globalfishingwatch.org/v3/events'
         if not (1 <= limit <= 100):
             print("Please enter a value between 1 and 100.")
@@ -54,10 +51,10 @@ class FishingAnalyser:
                 vessel_id = data['entries'][i]['vessel'].get('id')
                 extracted_data.append([vessel_id, speed, distance_from_shore, distance_from_port, lat, lon])
 
-            extracted_df = pd.DataFrame(
-                extracted_data, columns=['vessel_id', 'speed', 'distance_from_shore', 'distance_from_port', 'lat', 'lon']
+            return pd.DataFrame(
+                extracted_data,
+                columns=['vessel_id', 'speed', 'distance_from_shore', 'distance_from_port', 'lat', 'lon']
             )
-            return extracted_df
         else:
             print(f"Failed to retrieve data: {response.status_code}")
             print(response.text)
@@ -67,9 +64,7 @@ class FishingAnalyser:
         geometry = [Point(lon, lat) for lon, lat in zip(df['lon'], df['lat'])]
         ship_gdf = gpd.GeoDataFrame(df, geometry=geometry, crs='EPSG:4326')
         filtered_ships = gpd.sjoin(ship_gdf, self.ocean_data, how='inner', predicate='within')
-        keep_cols = ['vessel_id', 'speed', 'distance_from_shore', 'distance_from_port', 'lat', 'lon']
-        filtered_ships = filtered_ships.loc[:, keep_cols]
-        return filtered_ships
+        return filtered_ships[['vessel_id', 'speed', 'distance_from_shore', 'distance_from_port', 'lat', 'lon']]
 
     def predict_fishing_status(self, df):
         model_input = df.drop(['vessel_id'], axis=1).values
