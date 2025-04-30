@@ -4,5 +4,4 @@ geopandas
 matplotlib
 shapely
 joblib
-requests
-python-dotenv
+requests==1.2.0
