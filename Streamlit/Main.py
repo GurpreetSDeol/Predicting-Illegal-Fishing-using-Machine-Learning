@@ -5,12 +5,13 @@ import geopandas as gpd
 from shapely.geometry import Point
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
+import streamlit as st
 
 class FishingAnalyser:
 
     def __init__(self):
-        load_dotenv()
-        self.token = os.getenv('token')
+        
+        self.token = st.secrets["token"]
         self.rf_model = joblib.load('random_forest_fishing_model.pkl')
 
         self.mpa_data = gpd.read_file('Data\Simple_mpz\simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
