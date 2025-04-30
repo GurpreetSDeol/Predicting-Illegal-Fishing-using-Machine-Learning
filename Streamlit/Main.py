@@ -1,22 +1,24 @@
 import os
-import joblib
 import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
-import streamlit as st
+import pickle
+import gzip
 
 class FishingAnalyser:
 
     def __init__(self):
-        
-        self.token = st.secrets["token"]
-        self.rf_model = joblib.load('Streamlit/random_forest_fishing_model.pkl')
+        load_dotenv()
+        self.token = os.getenv('token')
+      
+        with gzip.open(rf'random_forest_fishing_model.pkl.gz', 'rb') as f:
+              self.rf_model = pickle.load(f)
 
-        self.mpa_data = gpd.read_file('Streamlit/Data/Simple_mpz/simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
-        self.ocean_data = gpd.read_file('Streamlit/Data/ne_110m_ocean/ne_110m_ocean.shp')
-        self.land_data = gpd.read_file('Streamlit/Data/ne_10m_land/ne_10m_land.shp')
+        self.mpa_data = gpd.read_file('Data\Simple_mpz\simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
+        self.ocean_data = gpd.read_file('Data/ne_110m_ocean/ne_110m_ocean.shp')
+        self.land_data = gpd.read_file('Data/ne_10m_land/ne_10m_land.shp')
 
     def api_request(self, start_date, end_date, limit):
         import requests
