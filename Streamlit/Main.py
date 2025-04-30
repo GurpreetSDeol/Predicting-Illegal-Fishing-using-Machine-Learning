@@ -12,7 +12,7 @@ class FishingAnalyser:
     def __init__(self):
         
         self.token = st.secrets["token"]
-        self.rf_model = joblib.load('Streamlit/random_forest_fishing_model.pkl')
+        self.rf_model = joblib.load('Streamlit\random_forest_fishing_model.pkl')
 
         self.mpa_data = gpd.read_file('Streamlit/Data/Simple_mpz/simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
         self.ocean_data = gpd.read_file('Streamlit/Data/ne_110m_ocean/ne_110m_ocean.shp')
