@@ -14,8 +14,9 @@ class FishingAnalyser:
        
         self.token = st.secrets["token"]
       
-        with gzip.open(rf'random_forest_fishing_model.pkl.gz', 'rb') as f:
-              self.rf_model = pickle.load(f)
+        model_path = os.path.join(os.path.dirname(__file__), 'random_forest_fishing_model.pkl.gz')
+            with gzip.open(model_path, 'rb') as f:
+
 
         self.mpa_data = gpd.read_file('Data\Simple_mpz\simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
         self.ocean_data = gpd.read_file('Data/ne_110m_ocean/ne_110m_ocean.shp')
