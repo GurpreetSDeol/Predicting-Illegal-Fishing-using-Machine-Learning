@@ -11,17 +11,25 @@ import streamlit as st
 class FishingAnalyser:
 
     def __init__(self):
-       
         self.token = st.secrets["token"]
-      
-        model_path = os.path.join(os.path.dirname(__file__), 'random_forest_fishing_model.pkl.gz')
+
+        base_path = os.path.dirname(__file__)
+
+        model_path = os.path.join(base_path, 'random_forest_fishing_model.pkl.gz')
         with gzip.open(model_path, 'rb') as f:
-             self.rf_model = pickle.load(f)
+            self.rf_model = pickle.load(f)
 
+        self.mpa_data = gpd.read_file(
+            os.path.join(base_path, 'Data', 'Simple_mpz', 'simplified_zoneassessment_geom.shp')
+        ).to_crs(epsg=4326)
 
-        self.mpa_data = gpd.read_file(r'Data/Simple_mpz/simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
-        self.ocean_data = gpd.read_file(r'Data/ne_110m_ocean/ne_110m_ocean.shp')
-        self.land_data = gpd.read_file(r'Data/ne_10m_land/ne_10m_land.shp')
+        self.ocean_data = gpd.read_file(
+            os.path.join(base_path, 'Data', 'ne_110m_ocean', 'ne_110m_ocean.shp')
+        )
+
+        self.land_data = gpd.read_file(
+            os.path.join(base_path, 'Data', 'ne_10m_land', 'ne_10m_land.shp')
+        )
 
     def api_request(self, start_date, end_date, limit):
         import requests
