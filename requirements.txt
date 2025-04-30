@@ -4,4 +4,3 @@ geopandas
 matplotlib
 shapely
 requests
-gzip
