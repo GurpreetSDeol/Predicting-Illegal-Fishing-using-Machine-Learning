@@ -87,5 +87,4 @@ The **Streamlit app** is the final interactive product. It allows users to:
 
 - Improve Random Forest model size without compromising accuracy  
 - Add support for multi-vessel tracking and filtering  
-- Schedule regular data fetching via cloud functions or cron  
-- Add downloadable reports or flag exports for authorities
+- Implement a Live AIS tracker
