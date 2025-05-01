@@ -1,46 +1,91 @@
-# Predicting-Illegal-Fishing-using-Machine-Learning
+# 🚢 Predicting Illegal Fishing Using Machine Learning
 
-## Overview 
-This project uses AIS data and spatial analysis to predict and flag potentially illegal fishing activity. A machine learning model is trained on vessel behavior to identify patterns indicative of fishing within Marine Protected Areas (MPAs).
+This project applies machine learning and spatial analysis to identify potential illegal fishing activity using Automatic Identification System (AIS) data. It leverages a trained Random Forest model to detect fishing behaviour and flags vessels that may be operating inside Marine Protected Areas (MPAs).
 
-## Features 
+🔗 **Live App**: [Streamlit Dashboard](https://predicting-illegal-fishing-using-machine-learning.streamlit.app)
 
-Accesses recent Global Fishing Watch data via API
+---
 
-Predicts fishing activity using a trained Random Forest model with a 97% accuracy. 
+## 🌍 Overview
 
-Identifies illegal activity based on overlap with MPAs
+Using data from the Global Fishing Watch API, this application processes vessel movement events and predicts whether a vessel is fishing. If fishing is detected within protected marine zones, the event is flagged as potentially illegal.
 
-Visualizes results on a map with vessel status color-coded
+The original model was retrained and optimised to reduce file size for deployment, resulting in slightly lower accuracy than the original version, but still performing reliably.
 
-Built with GeoPandas, scikit-learn, matplotlib, PostGIS
+### 🧠 Model Performance
 
+- **Training set class distribution**:  
+  `{0: 240,702 (Not Fishing), 1: 202,382 (Fishing)}`
+- **Test set class distribution**:  
+  `{0: 60,064, 1: 50,707}`
 
-## How it works 
+| Class         | Precision | Recall | F1-score |
+|---------------|-----------|--------|----------|
+| Not Fishing   | 0.97      | 0.91   | 0.94     |
+| Fishing       | 0.90      | 0.96   | 0.93     |
+| **Accuracy**  |           |        | **0.94** |
 
-Pull vessel event data via Global Fishing Watch API
+---
 
-Predict fishing activity with ML model
+## 🚀 Streamlit Dashboard
 
-Filter vessel positions against ocean and MPA polygons
+The **Streamlit app** is the final interactive product. It allows users to:
 
-Visualize potential illegal activity on a map
+- Fetch and process real-time vessel event data from the Global Fishing Watch API.
+- Apply a trained machine learning model to classify vessel behaviour.
+- Filter results spatially to highlight suspected illegal fishing activity within MPAs.
+- Visualise results on an interactive map with colour-coded vessel behaviour.
 
-## Files
-__Analysis.ipynb__: A visualisation of the MPZ's and fishing activity
+👉 **Try it live**: [https://predicting-illegal-fishing-using-machine-learning.streamlit.app](https://predicting-illegal-fishing-using-machine-learning.streamlit.app)
 
-__Filter_Fishing_data.ipynb__: Contains all of the data preprocessing steps
+---
 
-__Machine_Learning_Model.ipynb__: Development of the ML model
+## ⚙️ How It Works
 
-__Main.ipynb__: Contains functions for the API request, data filtering, ML prediction and plotting 
+1. **Data Retrieval**: Vessel event data is pulled from the Global Fishing Watch API.
+2. **ML Classification**: A trained Random Forest model predicts whether a vessel is engaged in fishing.
+3. **Spatial Filtering**: Events are filtered based on ocean and MPZ (Marine Protected Zone) boundaries using GeoPandas and spatial joins.
+4. **Visualisation**: Results are plotted on an interactive map to highlight potential violations.
 
-## Data Sources
+---
 
-Global Fishing Watch: Ship vessel data and API, including preprocessed labels indicating if a vessel is fishing.
+## 📁 Repository Structure
 
-Natural Earth Data: Ocean and Land boundaries.
+```
+├── Python files/
+│   ├── Filter_Fishing_data.ipynb      # Data preprocessing and cleaning
+│   ├── Machine_Learning_Model.ipynb   # Model development and evaluation
+│   └── Main.ipynb                     # Functions for API fetch, filtering, prediction, and plotting
+│
+├── Streamlit/
+│   ├── app.py                         # Streamlit frontend interface
+│   ├── Main.py                        # Core class (API, prediction, filtering, map)
+│   └── Data/                          # GeoJSON boundaries, trained ML model
+```
 
-Protected Planet: Marine Protected Zones (MPZ) boundaries.
+---
 
-Marine Conservation Institute: Marine Protected Zones (MPZ) boundaries.
+## 📦 Features
+
+- ✅ Accesses live vessel event data via Global Fishing Watch API  
+- ✅ Predicts fishing behaviour using a Random Forest model  
+- ✅ Identifies activity inside Marine Protected Areas (MPAs)  
+- ✅ Visualises spatial patterns using interactive maps  
+- ✅ Built with GeoPandas, scikit-learn, matplotlib, and PostGIS  
+
+---
+
+## 📚 Data Sources
+
+- **Global Fishing Watch** – Vessel movement data and fishing activity labels  
+- **Natural Earth Data** – Ocean and land boundaries  
+- **Protected Planet** / **Marine Conservation Institute** – Marine Protected Zone (MPZ) boundaries  
+
+---
+
+## 📌 Future Improvements
+
+- Improve model size without compromising accuracy  
+- Add support for multi-vessel tracking and filtering  
+- Schedule regular data fetching via cloud functions or cron  
+- Add downloadable reports or flag exports for authorities
