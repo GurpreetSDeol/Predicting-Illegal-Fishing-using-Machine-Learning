@@ -55,19 +55,19 @@ The **Streamlit app** is the final interactive product. It allows users to:
 ├── Python files/
 │   ├── Filter_Fishing_data.ipynb      # Data preprocessing and cleaning
 │   ├── Machine_Learning_Model.ipynb   # Random Forest model development and evaluation
-│   └── Main.ipynb                     # Functions for API fetch, filtering, prediction, and plotting
+│   └── Main.ipynb                     # Initial functions for API fetch, filtering, prediction and plotting
 │
 ├── Streamlit/
 │   ├── app.py                         # Streamlit frontend interface
-│   ├── Main.py                        # Core class (API, prediction, filtering, map)
-│   └── Data/                          # GeoJSON boundaries, trained Random Forest model
+│   ├── Main.py                        # Final Core class (API, prediction, filtering, map)
+│   └── Data/                          # Geographical boundaries and trained Random Forest model
 ```
 
 ---
 
 ## 📦 Features
 
-- ✅ Accesses live vessel event data via Global Fishing Watch API  
+- ✅ Accesses recent vessel event data via Global Fishing Watch API  
 - ✅ Predicts fishing behaviour using a Random Forest classifier  
 - ✅ Identifies activity inside Marine Protected Areas (MPAs)  
 - ✅ Visualises spatial patterns using interactive maps  
