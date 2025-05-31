@@ -26,6 +26,7 @@ Limitations:
 Due to how expensive it would be to implement a live AIS feed into the project, I have used the Global Fishing Watch database which has a record of historical vessel journeys.
 
 [🔗 GitHub Repository](https://github.com/GurpreetSDeol/Predicting-Illegal-Fishing-using-Machine-Learning/tree/main)
+
 [🔗 Portfolio Website](https://gurpreetsdeol.github.io/)
 """)
 
