@@ -3,26 +3,37 @@ import pandas as pd
 import geopandas as gpd
 from shapely.geometry import Point
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv
 import pickle
 import gzip
+import streamlit as st
+
 
 class FishingAnalyser:
 
     def __init__(self):
-        load_dotenv()
-        self.token = os.getenv('token')
-      
-        with gzip.open(rf'random_forest_fishing_model.pkl.gz', 'rb') as f:
-              self.rf_model = pickle.load(f)
+        self.token = st.secrets["token"]
+
+        base_path = os.path.dirname(__file__)
         
+        model_path = os.path.join(base_path,  'random_forest_fishing_model.pkl.gz')
+        
+        with gzip.open(model_path, 'rb') as f:
+            self.rf_model = pickle.load(f)
+            
         with open('scaler.pkl', 'rb') as f:
               self.scaler = pickle.load(f)
 
+        self.mpa_data = gpd.read_file(
+            os.path.join(base_path, 'Data', 'Simple_mpz', 'simplified_zoneassessment_geom.shp')
+        ).to_crs(epsg=4326)
 
-        self.mpa_data = gpd.read_file('Data\Simple_mpz\simplified_zoneassessment_geom.shp').to_crs(epsg=4326)
-        self.ocean_data = gpd.read_file('Data/ne_110m_ocean/ne_110m_ocean.shp')
-        self.land_data = gpd.read_file('Data/ne_10m_land/ne_10m_land.shp')
+        self.ocean_data = gpd.read_file(
+            os.path.join(base_path, 'Data', 'ne_110m_ocean', 'ne_110m_ocean.shp')
+        )
+
+        self.land_data = gpd.read_file(
+            os.path.join(base_path, 'Data', 'ne_10m_land', 'ne_10m_land.shp')
+        )
 
     def api_request(self, start_date, end_date, limit):
         import requests
