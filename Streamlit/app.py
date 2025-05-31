@@ -10,19 +10,23 @@ st.markdown("""
 
 Analyse vessel activity to identify suspected illegal fishing within Marine Protected Areas (MPAs).
 
-You can:
+How it works:
 - Enter data manually or fetch it via the Global Fishing Watch API.
-- Filter vessels located in ocean areas.
-- Predict fishing behavior using a trained machine learning model.
-- Identify suspected illegal activity inside MPAs.
+- Filters vessels located in ocean areas.
+- Predict fishing (Yes/No) behavior using a trained classification random forest model.
+- Identify suspected illegal activity by filtering through Marine Protected Zones.
 - Visualize vessel activity on a map.
 
 Illegal statuses:
 - **Yes**: Fishing detected inside MPAs  
 - **Maybe**: Not fishing but inside MPAs  
-- **No**: Outside MPAs or not fishing  
+- **No**: Outside MPAs and not fishing  
+
+Limitations:
+Due to how expensive it would be to implement a live AIS feed into the project, I have used the Global Fishing Watch database which has a record of historical vessel journeys.
 
 [🔗 GitHub Repository](https://github.com/GurpreetSDeol/Predicting-Illegal-Fishing-using-Machine-Learning/tree/main)
+[🔗 Portfolio Website](https://gurpreetsdeol.github.io/)
 """)
 
 # Sidebar
