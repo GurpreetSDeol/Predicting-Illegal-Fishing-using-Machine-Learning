@@ -15,12 +15,10 @@ class FishingAnalyser:
 
         base_path = os.path.dirname(__file__)
         
-        model_path = os.path.join(base_path,  'random_forest_fishing_model.pkl.gz')
-        
-        with gzip.open(model_path, 'rb') as f:
+        with gzip.open(os.path.join(base_path, 'Data', 'random_forest_fishing_model.pkl.gz') , 'rb') as f:
             self.rf_model = pickle.load(f)
             
-        with open(os.path.join(base_path, 'scaler.pkl'), 'rb') as f:
+        with open(os.path.join(base_path, 'Data', 'scaler.pkl'), 'rb') as f:
               self.scaler = pickle.load(f)
 
         self.mpa_data = gpd.read_file(
