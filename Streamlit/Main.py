@@ -20,7 +20,7 @@ class FishingAnalyser:
         with gzip.open(model_path, 'rb') as f:
             self.rf_model = pickle.load(f)
             
-        with open('scaler.pkl', 'rb') as f:
+        with open(os.path.join(base_path, 'scaler.pkl'), 'rb') as f:
               self.scaler = pickle.load(f)
 
         self.mpa_data = gpd.read_file(
